@@ -5,6 +5,7 @@ import com.assertthat.selenium_shutterbug.core.Shutterbug;
 import io.qameta.allure.Allure;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -43,7 +44,8 @@ public class Utility {
     }
 
     public static void scrolling(WebDriver driver, By locator) {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", findWebElement(driver, locator));
+        Actions actions = new Actions(driver);
+        actions.moveToElement(findWebElement(driver, locator)).perform();
     }
 
     public static WebElement findWebElement(WebDriver driver, By locator) {
