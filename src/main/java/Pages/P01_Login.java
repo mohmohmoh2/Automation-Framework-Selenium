@@ -8,9 +8,9 @@ import static utilities.Utility.*;
 
 public class P01_Login {
     // TODO: Define the locators
-    private final By usernameInput = By.name("username");
-    private final By passwordInput = By.name("password");
-    private final By loginButton = By.xpath("//button[@type=\"submit\"]");
+    private final By usernameInput = By.id("ap_email");
+    private final By passwordInput = By.id("ap_password");
+    private final By loginButton = By.id("signInSubmit");
 
     private final WebDriver driver;
 

@@ -1,7 +1,8 @@
 package tests.login;
 
+import DriverSettings.DriverManager;
 import Pages.P01_Login;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -27,19 +28,20 @@ public class TC01_Login {
 
     @BeforeMethod
     public void setUp() throws IOException {
-        // TODO: Open the browser
-        setDriver(new ChromeDriver());
-        getDriver().get(getPropertyValue("config", "BASE_URL"));
+        String driverType = getPropertyValue("config", "driverType");
+        WebDriver driver = DriverManager.createDriver(driverType);
+        setDriver(driver);
+        getDriver().get(getPropertyValue("config", "LOGIN_PAGE"));
         getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
     @Test
     public void testLogin() throws IOException {
-        new P01_Login(getDriver())
-                .enterUsername(getJsonData("login", "username"))
+        P01_Login loginPage = new P01_Login(getDriver());
+        loginPage.enterUsername(getJsonData("login", "username"))
                 .enterPassword(getJsonData("login", "password"))
                 .clickLogin();
-        Assert.assertTrue(new P01_Login(getDriver()).assertLoginTc(EXPECTED_URL));
+        Assert.assertTrue(loginPage.assertLoginTc(EXPECTED_URL));
     }
 
     @AfterMethod
