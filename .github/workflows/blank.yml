@@ -34,3 +34,25 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+      # Step 4: Run Selenium tests and generate Allure reports
+      - name: Run tests and generate Allure results
+        run: mvn test
+  
+      # Step 5: Install Allure for report generation
+      - name: Install Allure
+        run: |
+          curl -o allure-commandline.zip -sSL https://github.com/allure-framework/allure2/releases/download/2.22.5/allure-2.22.5.zip
+          unzip allure-commandline.zip -d /opt/allure
+          export PATH=$PATH:/opt/allure/allure-2.22.5/bin
+  
+      # Step 6: Generate Allure HTML report
+      - name: Generate Allure Report
+        run: allure generate target/allure-results -o allure-report --clean
+  
+      # Step 7: Upload Allure HTML report as artifact
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-report
+          path: allure-report/
