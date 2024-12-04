@@ -2,8 +2,7 @@
 <suite name="Regression Suite">
     <test name="Regression Test">
         <classes>
-<!--            <class name="tests.login.TC01_Login"/>-->
-            <class name="tests.adminPage.TC02_AddUser"/>
+            <class name="tests.login.TC01_Login"/>
         </classes>
     </test>
 </suite>
